@@ -14,13 +14,18 @@ function App() {
   // console.log(artists);
 
   const [posts, setPosts] = useState([]);
+  console.log(posts);
 
   // console.log(post);
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((res) => res.json())
       .then((data) => setPosts(data));
-  });
+  },[]);
+
+  const handleDelete = (id) => {
+    setPosts(posts.filter(post => post.id !== id))
+  }
 
   return (
     <>
@@ -51,7 +56,7 @@ function App() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-3">
           {posts.map((post, index) => (
-            <Post post={post} index={index} key={post.id}></Post>
+            <Post handleDelete={handleDelete} post={post} index={index} key={post.id}></Post>
           ))}
         </div>
       </div>

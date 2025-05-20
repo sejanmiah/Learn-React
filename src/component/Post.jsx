@@ -1,6 +1,6 @@
 import React from "react";
 
-const Post = ({ post, index }) => {
+const Post = ({ post, index,handleDelete }) => {
   return (
     <div className="card w-96 bg-base-100 card-md shadow-sm">
       <div className="card-body">
@@ -9,7 +9,7 @@ const Post = ({ post, index }) => {
 
         <p>{post.body}</p>
         <div className="justify-end card-actions">
-          <button className="btn btn-primary">delete</button>
+          <button onClick={() => handleDelete(post.id)} className="btn btn-primary">delete</button>
         </div>
       </div>
     </div>
