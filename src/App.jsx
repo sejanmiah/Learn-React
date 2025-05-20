@@ -1,5 +1,6 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+import Post from "./component/Post";
 
 let initialArtists = [
   { id: 0, name: "Marta Colvin Andrade" },
@@ -9,19 +10,17 @@ let initialArtists = [
 // console.log(initialArtists);
 
 function App() {
-
   const [artists, setArtists] = useState(initialArtists);
   // console.log(artists);
 
-  const [post, setPost] = useState();
-  console.log(post);
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-    .then(res => res.json())
-    .then(data => setPost(data))
-  })
+  const [posts, setPosts] = useState([]);
 
-  
+  // console.log(post);
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => res.json())
+      .then((data) => setPosts(data));
+  });
 
   return (
     <>
@@ -29,18 +28,32 @@ function App() {
 
       <div className="mt-30">
         <ul>
-          {
-            artists.map(artist => <li className="m-2" key={artist.id}> {artist.name} <button
-              onClick={()=> {
-                setArtists(
-                  artists.filter(e => 
-                    e.id !== artist.id
-                  )
-                )
-              }}
-              className="btn">Delete</button> </li>)
-          }
+          {artists.map((artist) => (
+            <li className="m-2" key={artist.id}>
+              {" "}
+              {artist.name}{" "}
+              <button
+                onClick={() => {
+                  setArtists(artists.filter((e) => e.id !== artist.id));
+                }}
+                className="btn"
+              >
+                Delete
+              </button>{" "}
+            </li>
+          ))}
         </ul>
+      </div>
+      <div className="mx-5 mt-20">
+        <h1 className="m-5 text-center text-5xl">
+          API fetch and show ui, and dynamic delet data from api
+        </h1>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-3">
+          {posts.map((post, index) => (
+            <Post post={post} index={index} key={post.id}></Post>
+          ))}
+        </div>
       </div>
     </>
   );
