@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./App.css";
 
 let initialArtists = [
@@ -9,8 +9,17 @@ let initialArtists = [
 // console.log(initialArtists);
 
 function App() {
+
   const [artists, setArtists] = useState(initialArtists);
   // console.log(artists);
+
+  const [post, setPost] = useState();
+  console.log(post);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(res => res.json())
+    .then(data => setPost(data))
+  })
 
   
 
