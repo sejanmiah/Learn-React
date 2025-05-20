@@ -1,26 +1,40 @@
-import { useState } from 'react';
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 let initialArtists = [
-  { id: 0, name: 'Marta Colvin Andrade' },
-  { id: 1, name: 'Lamidi Olonade Fakeye'},
-  { id: 2, name: 'Louise Nevelson'},
+  { id: 0, name: "Marta Colvin Andrade" },
+  { id: 1, name: "Lamidi Olonade Fakeye" },
+  { id: 2, name: "Louise Nevelson" },
 ];
 // console.log(initialArtists);
-
-
 
 function App() {
   const [artists, setArtists] = useState(initialArtists);
   // console.log(artists);
 
+  
 
   return (
     <>
-      <h1 className='text-center text-5xl mt-5 font-bold'>Vite + React</h1>
+      <h1 className="text-center text-5xl mt-5 font-bold">Vite + React</h1>
 
+      <div className="mt-30">
+        <ul>
+          {
+            artists.map(artist => <li className="m-2" key={artist.id}> {artist.name} <button
+              onClick={()=> {
+                setArtists(
+                  artists.filter(e => 
+                    e.id !== artist.id
+                  )
+                )
+              }}
+              className="btn">Delete</button> </li>)
+          }
+        </ul>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
